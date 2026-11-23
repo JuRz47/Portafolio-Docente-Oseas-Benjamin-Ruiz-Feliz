@@ -1,0 +1,135 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Dinámicas digitales · Amenazas, vulnerabilidad y ataques</title>
+<style>
+:root{--bg:#f4f6fb;--cd:#fff;--tx:#14213d;--mu:#5b6577;--ac:#b4560f;--ac2:#1f7a70;--nv:#1b2a4e;--bd:#d5dbe8;--ok:#1f8a4c;--no:#c0392b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f172a;--cd:#1b2a4e;--tx:#eef1f7;--mu:#a9b4c9;--bd:#33466f;--ac:#e07a1f;--ac2:#2a9d8f;--ok:#4ade80;--no:#ff8a7a}}
+:root[data-theme="dark"]{--bg:#0f172a;--cd:#1b2a4e;--tx:#eef1f7;--mu:#a9b4c9;--bd:#33466f;--ac:#e07a1f;--ac2:#2a9d8f;--ok:#4ade80;--no:#ff8a7a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.45 system-ui,"Segoe UI",Arial,sans-serif}
+header{background:#1b2a4e;color:#fff;padding:18px 20px}header h1{margin:0;font:700 22px Georgia,serif}header p{margin:4px 0 0;color:#c9d1e0;font-size:14px}
+nav{display:flex;gap:8px;overflow-x:auto;padding:12px 16px;background:var(--cd);border-bottom:1px solid var(--bd);position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+nav button{white-space:nowrap;border:1px solid var(--bd);background:transparent;color:var(--tx);padding:8px 14px;border-radius:20px;font:600 14px inherit;cursor:pointer}
+nav button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+main{max-width:980px;margin:0 auto;padding:18px 16px 60px}
+.card{background:var(--cd);border:1px solid var(--bd);border-radius:14px;padding:18px;margin-bottom:16px}
+h2{margin:0 0 4px;font:700 20px Georgia,serif}.ref{color:var(--mu);font-size:13px;margin:0 0 12px}
+button.b,.b{background:var(--ac);color:#fff;border:0;border-radius:10px;padding:10px 16px;font:700 15px inherit;cursor:pointer}
+button.g{background:transparent;color:var(--tx);border:1px solid var(--bd);border-radius:10px;padding:9px 14px;font:600 14px inherit;cursor:pointer}
+input,textarea,select{width:100%;padding:9px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);font:15px inherit}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.row>*{flex:1 1 180px}.row>button{flex:0 0 auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.chip{display:inline-block;background:var(--bg);border:1px solid var(--bd);border-radius:12px;padding:8px 12px;margin:4px}
+.res{font:700 20px Georgia,serif;padding:14px;border-radius:12px;background:var(--nv);color:#fff;margin-top:12px;text-align:center}
+.wheel{position:relative;width:min(360px,86vw);margin:0 auto}.wheel canvas{width:100%;display:block}
+.ptr{position:absolute;left:50%;top:-6px;transform:translateX(-50%);width:0;height:0;border:14px solid transparent;border-top:26px solid #e07a1f;border-bottom:0}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}.opt{border:0;border-radius:12px;padding:18px 12px;color:#fff;font:700 16px inherit;cursor:pointer;text-align:left}
+.ok{color:var(--ok);font-weight:700}.no{color:var(--no);font-weight:700}
+.bar{height:8px;background:var(--bd);border-radius:4px;overflow:hidden}.bar i{display:block;height:100%;background:var(--ac2);transition:width .2s linear}
+.big{font:700 72px Georgia,serif;text-align:center}.star{background:#fff3d6;color:#14213d;border:1px solid #e07a1f;border-radius:12px;padding:10px;font-size:14px}
+label.k{display:flex;gap:8px;align-items:flex-start;padding:6px 0}label.k input{width:auto;margin-top:4px}
+@media(max-width:560px){.opts{grid-template-columns:1fr}}
+</style></head><body>
+<header><h1>Dinámicas digitales · Amenazas, vulnerabilidad y ataques</h1><p>Módulo I: Entendiendo la Seguridad · Cada pestaña indica la diapositiva a la que reemplaza</p></header>
+<nav id="nav"></nav><main id="view"></main>
+<script>
+const K='dig_amenazas';const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let ST;try{ST=JSON.parse(localStorage.getItem(K))}catch(e){}
+ST=Object.assign({names:Array.from({length:16},(_,i)=>'Participante '+(i+1)).join('\n'),ex:[],norms:[],signed:false,mural:['','',''],cot:{}},ST||{});
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(ST))}catch(e){}};
+const names=()=>ST.names.split('\n').map(s=>s.trim()).filter(Boolean);
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const TABS=[['ruleta','Ruleta de seguridad'],['kahoot','Kahoot'],['inicio','Inicio'],['grupos','Equipos'],['casos','Casos'],['tiempo','Cronómetro'],['cotejo','Lista de cotejo'],['cierre','Cierre'],['enviar','Enviar al grupo']];
+function go(id){document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===id));clearInterval(TM);clearInterval(KT);$('#view').innerHTML='';VIEWS[id]();}
+$('#nav').innerHTML=TABS.map(t=>`<button data-t="${t[0]}" onclick="go('${t[0]}')">${t[1]}</button>`).join('');
+let TM,KT;
+/* ---------- RULETA ---------- */
+const LISTS={retro:[['Delincuentes','¿Quiénes son los delincuentes cibernéticos?'],['Hackers','¿Qué tipos de hackers existen?'],['El reino','¿Qué es el reino en un mundo cibernético?'],['Contramedidas','¿Qué es una contramedida?'],['Seguridad','¿Qué es la seguridad de la información?'],['Roles','¿Qué roles y responsabilidades hay en la seguridad?']],
+cofre:[['Amenaza vs vulnerab.','¿Qué diferencia una amenaza de una vulnerabilidad?'],['Ataque','¿Qué es un ataque cibernético?'],['BYOD','¿Qué pasa si un empleado usa su dispositivo personal en la red de la empresa?'],['Interna','¿Qué es una amenaza interna? ¿Cómo la reconoces?'],['Externa','¿Qué es una amenaza externa? Da un ejemplo.'],['Phishing','¿Cómo reconoces un correo de phishing?']]};
+const W={mode:'names',rot:0,busy:false,used:{},rep:true};
+const MODES=[['names','Presentación · al azar (diap. 3)'],['retro','Retroalimentación (diap. 13)'],['cofre','Cofre del reino (diap. 18)']];
+function pool(){const all=W.mode==='names'?names().map(n=>[n,n]):LISTS[W.mode];const u=W.used[W.mode]||[];return W.rep?all:all.filter(x=>!u.includes(x[1]))}
+const COL=['#1b2a4e','#1f7a70','#b4560f','#3a5a94','#5b6577','#8a3f0b'];
+function draw(){const c=$('#cv');if(!c)return;const p=pool(),n=p.length||1,s=2*Math.PI/n,x=c.getContext('2d'),R=c.width/2;x.clearRect(0,0,c.width,c.height);
+p.forEach((it,i)=>{const a=W.rot+i*s;x.beginPath();x.moveTo(R,R);x.arc(R,R,R-4,a,a+s);x.closePath();x.fillStyle=COL[i%COL.length];x.fill();x.strokeStyle='#fff';x.lineWidth=2;x.stroke();
+x.save();x.translate(R,R);x.rotate(a+s/2);x.fillStyle='#fff';x.font='bold '+(n>12?18:24)+'px system-ui';x.textAlign='right';const t=it[0].length>16?it[0].slice(0,15)+'…':it[0];x.fillText(t,R-24,7);x.restore()});
+x.beginPath();x.arc(R,R,26,0,7);x.fillStyle='#e07a1f';x.fill();x.fillStyle='#fff';x.font='bold 15px system-ui';x.textAlign='center';x.fillText('GIRA',R,R+5)}
+function spin(){if(W.busy)return;const p=pool();if(p.length<2){$('#rs').textContent='Agrega al menos dos opciones o reinicia la ruleta.';return}
+W.busy=true;const st=W.rot,tot=(5+Math.random()*3)*2*Math.PI,t0=performance.now(),D=4200;
+(function f(t){const k=Math.min(1,(t-t0)/D),e=1-Math.pow(1-k,3);W.rot=st+tot*e;draw();if(k<1)return requestAnimationFrame(f);
+W.busy=false;const s=2*Math.PI/p.length,pos=(((1.5*Math.PI-W.rot)%(2*Math.PI))+2*Math.PI)%(2*Math.PI),w=p[Math.floor(pos/s)];
+(W.used[W.mode]=W.used[W.mode]||[]).push(w[1]);
+$('#rs').innerHTML=W.mode==='names'?`${esc(w[1])}<br><small>Preséntate: di tu nombre y una palabra que represente cómo llegas al encuentro.</small>`:esc(w[1]);if(!W.rep)setTimeout(draw,600)})(t0)}
+const VIEWS={};
+VIEWS.ruleta=()=>{$('#view').innerHTML=`<div class="card"><h2>Ruleta de seguridad</h2><p class="ref">Reemplaza la pelota · Diapositivas 3, 13 y 18 · elige al azar a una persona o una pregunta</p>
+<div class="row" id="md">${MODES.map(m=>`<button class="g" data-m="${m[0]}">${m[1]}</button>`).join('')}</div><br>
+<div class="wheel"><div class="ptr"></div><canvas id="cv" width="720" height="720"></canvas></div>
+<div class="row" style="margin-top:14px"><button class="b" onclick="spin()">Girar la ruleta</button><label class="k"><input type="checkbox" id="rep" ${W.rep?'checked':''}> Permitir repetir</label><button class="g" onclick="W.used={};draw()">Reiniciar</button></div>
+<div class="res" id="rs">Gira la ruleta para elegir</div></div>
+<div class="card"><h2>Participantes</h2><p class="ref">Un nombre por línea (se usa también en Equipos)</p><textarea id="nm" rows="6">${esc(ST.names)}</textarea></div>`;
+$('#nm').oninput=e=>{ST.names=e.target.value;save();if(W.mode==='names')draw()};$('#rep').onchange=e=>{W.rep=e.target.checked;draw()};
+document.querySelectorAll('#md button').forEach(b=>{b.onclick=()=>{W.mode=b.dataset.m;document.querySelectorAll('#md button').forEach(x=>x.style.background=x===b?'var(--ac)':'');document.querySelectorAll('#md button').forEach(x=>x.style.color=x===b?'#fff':'');$('#rs').textContent='Gira la ruleta para elegir';draw()}});
+document.querySelector('#md button').click()};
+/* ---------- KAHOOT ---------- */
+const Q=[['¿Qué es la ciberseguridad?',['Instalar programas de oficina','Proteger sistemas, redes y datos frente a amenazas','Reparar computadoras','Aumentar la velocidad del internet'],1],
+['¿Qué diferencia una amenaza de una vulnerabilidad?',['Son exactamente lo mismo','La amenaza es una debilidad y la vulnerabilidad un atacante','La amenaza puede causar daño; la vulnerabilidad es la debilidad que se aprovecha','Ninguna representa un riesgo'],2],
+['¿Qué es un ataque cibernético?',['Una copia de seguridad','Una actualización del sistema','Un contrato de servicio','La acción que explota una vulnerabilidad para causar daño'],3],
+['¿Qué es un sistema de gestión de seguridad (SGSI)?',['Políticas, procesos y controles para proteger la información','Un tipo de router','Un antivirus','Un lenguaje de programación'],0],
+['¿Para qué sirve una auditoría informática?',['Vender equipos','Verificar si los controles de seguridad se cumplen','Borrar datos antiguos','Decorar el centro de datos'],1]];
+const SY=['▲','◆','●','■'],KC=['#c0392b','#2a5db0','#b4560f','#1f7a40'];let KS;
+VIEWS.kahoot=()=>{KS={i:0,pts:0,ok:0,t:20,done:false};kq()};
+function kq(){if(KS.i>=Q.length){ST.kh=[KS.pts,KS.ok];save();$('#view').innerHTML=`<div class="card"><h2>Resultado del diagnóstico</h2><div class="big">${KS.pts}</div><p style="text-align:center">puntos · ${KS.ok} de ${Q.length} respuestas correctas</p><p style="text-align:center">${KS.ok>=4?'Excelente base para el módulo.':KS.ok>=2?'Buen punto de partida: reforzaremos algunos conceptos.':'Perfecto: el módulo te dará las bases.'}</p><div style="text-align:center"><button class="b" onclick="VIEWS.kahoot()">Jugar de nuevo</button></div></div>`;return}
+const q=Q[KS.i];KS.t=20;KS.done=false;
+$('#view').innerHTML=`<div class="card"><h2>Kahoot diagnóstico</h2><p class="ref">Diapositiva 6 · Pregunta ${KS.i+1} de ${Q.length} · ${KS.pts} puntos</p><div class="bar"><i id="kb" style="width:100%"></i></div><h2 style="margin:16px 0">${esc(q[0])}</h2><div class="opts">${q[1].map((o,i)=>`<button class="opt" style="background:${KC[i]}" onclick="ka(${i})">${SY[i]} ${esc(o)}</button>`).join('')}</div><p id="kf" style="min-height:28px;margin-top:12px"></p><div id="kn"></div></div>`;
+clearInterval(KT);KT=setInterval(()=>{KS.t-=.2;const b=$('#kb');if(b)b.style.width=Math.max(0,KS.t/20*100)+'%';if(KS.t<=0)ka(-1)},200)}
+function ka(i){if(KS.done)return;KS.done=true;clearInterval(KT);const q=Q[KS.i],r=i===q[2];if(r){KS.ok++;KS.pts+=Math.max(300,Math.round(1000*KS.t/20))}
+document.querySelectorAll('.opt').forEach((b,j)=>{b.disabled=true;b.style.opacity=j===q[2]||j===i?1:.35});
+$('#kf').innerHTML=r?'<span class="ok">¡Correcto!</span>':`<span class="no">${i<0?'Se acabó el tiempo.':'Incorrecto.'}</span> Respuesta: ${esc(q[1][q[2]])}`;
+$('#kn').innerHTML=`<button class="b" onclick="KS.i++;kq()">${KS.i===Q.length-1?'Ver resultado':'Siguiente'}</button>`}
+/* ---------- INICIO ---------- */
+VIEWS.inicio=()=>{$('#view').innerHTML=`<div class="card"><h2>El cielo de las expectativas</h2><p class="ref">Diapositiva 8 · cada persona agrega su tarjeta</p><div class="row"><input id="e1" placeholder="Espero aprender…"><input id="e2" placeholder="Me servirá para…"><input id="e3" placeholder="Nombre"><button class="b" onclick="addEx()">Agregar</button></div><div id="sky" style="margin-top:12px"></div></div>
+<div class="card"><h2>Acuerdos y compromisos</h2><p class="ref">Diapositiva 9 · propón una norma; el grupo la valida y todos firman</p><div class="row"><input id="n1" placeholder="Propón una norma…"><button class="b" onclick="addN()">Proponer</button></div><div id="nl" style="margin-top:8px"></div><button class="g" onclick="ST.signed=!ST.signed;save();rn()">${ST.signed?'Quitar firma':'Todos firmamos'}</button></div>`;rs();rn()};
+const rs=()=>{$('#sky').innerHTML=ST.ex.length?ST.ex.map((e,i)=>`<span class="chip star">★ <b>${esc(e[0])}</b> · ${esc(e[1])}<br><small>${esc(e[2])||'Anónimo'}</small> <a href="#" onclick="ST.ex.splice(${i},1);save();rs();return false">quitar</a></span>`).join(''):'<p class="ref">Aún no hay tarjetas.</p>'};
+const rn=()=>{if(!$('#nl'))return;$('#nl').innerHTML=(ST.norms.map((n,i)=>`<div class="chip">${esc(n.t)} <a href="#" onclick="ST.norms.splice(${i},1);save();rn();return false">quitar</a></div>`).join('')||'<p class="ref">Aún no hay normas.</p>')+(ST.signed?'<p class="ok">✔ Acuerdo firmado por todo el grupo.</p>':'')};
+function addEx(){const a=[$('#e1').value,$('#e2').value,$('#e3').value];if(!a[0].trim())return;ST.ex.push(a.map(s=>s.trim()).concat([false]));save();['e1','e2','e3'].forEach(i=>$('#'+i).value='');rs()}
+function addN(){const v=$('#n1').value.trim();if(!v)return;ST.norms.push({t:v,ok:false});save();$('#n1').value='';rn()}
+/* ---------- EQUIPOS ---------- */
+const PZ=['Torre','Muralla','Puente','Escudo','Foso','Puerta','Bandera','Almena'],RL=['Coordinador(a)','Secretario(a)','Expositor(a)','Observador(a)'];
+VIEWS.grupos=()=>{$('#view').innerHTML=`<div class="card"><h2>Equipos y comunidades al azar</h2><p class="ref">Diapositivas 11 y 25 · usa la lista de participantes de la ruleta (${names().length} personas)</p><div class="row"><button class="b" onclick="eq()">Equipos de apoyo</button><button class="b" onclick="cm()">Comunidades “Las piezas del castillo”</button></div><div id="gr" class="grid" style="margin-top:14px"></div></div>`};
+function eq(){const T=['Equipo de animación','Equipo de gestión','Equipo de retroalimentación'],g=T.map(()=>[]);shuffle(names()).forEach((n,i)=>g[i%3].push(n));$('#gr').innerHTML=T.map((t,i)=>`<div class="card"><b>${t}</b><br>${g[i].map(esc).join('<br>')}</div>`).join('')}
+function cm(){const s=shuffle(names()),g=PZ.map(()=>[]);s.forEach((n,i)=>g[i%PZ.length].push(n));$('#gr').innerHTML=PZ.map((p,i)=>`<div class="card"><b>${p}</b><br>${g[i].map((n,j)=>`<small>${RL[j%4]}:</small> ${esc(n)}`).join('<br>')||'—'}</div>`).join('')}
+/* ---------- CASOS ---------- */
+function sel(id,opts,c){return `<select id="${id}" data-c="${c}"><option value="">Elige…</option>${opts.map((o,i)=>`<option value="${i}">${esc(o)}</option>`).join('')}</select><span id="${id}r"></span>`}
+function chk(ids,msg){let ok=0;ids.forEach(id=>{const s=$('#'+id),r=s.value!==''&&+s.value===+s.dataset.c;ok+=r;$('#'+id+'r').innerHTML=r?' <span class="ok">✔</span>':' <span class="no">✘</span>'});ST[msg]=ok+'/'+ids.length;save();$('#'+msg).innerHTML=`${ok} de ${ids.length} correctas`+(ok===ids.length?'. La amenaza aprovecha una vulnerabilidad mediante un ataque.':'')}
+VIEWS.casos=()=>{const EX=[['Un correo falso llega a un empleado sin capacitación',1],['Un servidor sin actualizar recibe código malicioso',2],['Un dispositivo personal sin controles entra a la red de la empresa',3]],AT=['Denegación de servicio','Phishing','Infección con malware','Fuga de información'];
+$('#view').innerHTML=`<div class="card"><h2>El correo de Luis</h2><p class="ref">Diapositivas 12 y 29 · tarjeta de salida</p><p>Luis trabaja en Distribuidora Caribe. Abre en su celular personal un correo falso con un enlace urgente, conectado al Wi-Fi de la empresa.</p>
+<p><b>Amenaza</b> ${sel('c1',['Correo falso de un delincuente cibernético','Una actualización del sistema','Un respaldo de datos'],0)}</p><p><b>Vulnerabilidad</b> ${sel('c2',['Antivirus actualizado','Usuario sin capacitación y dispositivo personal en la red','Red aislada'],1)}</p><p><b>Ataque</b> ${sel('c3',['Copia de seguridad','Auditoría','Phishing'],2)}</p><button class="b" onclick="chk(['c1','c2','c3'],'cr')">Revisar con la clave</button> <b id="cr"></b></div>
+<div class="card"><h2>Tres ejemplos</h2><p class="ref">Diapositiva 23 · ¿qué ataque ocurre en cada caso?</p>${EX.map((e,i)=>`<p>${i+1}. ${esc(e[0])}<br>${sel('x'+i,AT,e[1])}</p>`).join('')}<button class="b" onclick="chk(['x0','x1','x2'],'xr')">Comprobar</button> <b id="xr"></b></div>`};
+/* ---------- CRONÓMETRO ---------- */
+let TL=600,TR=false;
+VIEWS.tiempo=()=>{TR=false;$('#view').innerHTML=`<div class="card" style="text-align:center"><h2>Trabajo en comunidades</h2><p class="ref">Diapositiva 26 · tiempo de la actividad</p><div class="big" id="td">10:00</div><div class="row" style="justify-content:center"><input id="tm" type="number" min="1" max="60" value="10" style="max-width:90px"><span style="flex:0">minutos</span><button class="b" onclick="ts()">Iniciar / pausar</button><button class="g" onclick="TL=($('#tm').value||10)*60;tr()">Reiniciar</button></div><p id="tf" style="font-weight:700"></p></div>`;TL=600;tr()};
+const tr=()=>{const m=Math.floor(TL/60),s=TL%60;$('#td').textContent=m+':'+String(s).padStart(2,'0');$('#td').style.color=TL<=60?'var(--no)':'';$('#tf').textContent=TL<=0?'¡Tiempo! Pasen a la plenaria.':''};
+function ts(){TR=!TR;clearInterval(TM);if(TR)TM=setInterval(()=>{TL=Math.max(0,TL-1);tr();if(!TL){clearInterval(TM);TR=false}},1000)}
+/* ---------- COTEJO ---------- */
+const CR=['Identifica las amenazas presentes en el caso','Identifica las vulnerabilidades que pueden aprovecharse','Señala los ataques posibles','Relaciona cada amenaza con su vulnerabilidad y su ataque','Registra la información de forma clara y ordenada','Justifica sus identificaciones en plenaria','Cumple los roles asignados','Entrega el producto en el tiempo de la actividad'];
+VIEWS.cotejo=()=>{$('#view').innerHTML=`<div class="card"><h2>Lista de cotejo</h2><p class="ref">Diapositiva 27 · coevaluación entre comunidades</p><select id="cm">${PZ.map(p=>`<option>${p}</option>`).join('')}</select><div id="cl" style="margin:10px 0">${CR.map((c,i)=>`<label class="k"><input type="checkbox"> ${esc(c)}</label>`).join('')}</div><button class="b" onclick="sc()">Guardar evaluación</button><div id="ct" style="margin-top:12px"></div></div>`;rc()};
+function sc(){ST.cot[$('#cm').value]=[...document.querySelectorAll('#cl input')].filter(i=>i.checked).length;save();document.querySelectorAll('#cl input').forEach(i=>i.checked=false);rc()}
+const rc=()=>{const k=Object.keys(ST.cot);$('#ct').innerHTML=k.length?k.map(p=>`<span class="chip"><b>${p}</b>: ${ST.cot[p]}/8</span>`).join(''):'<p class="ref">Aún no hay evaluaciones.</p>'};
+/* ---------- CIERRE ---------- */
+VIEWS.cierre=()=>{const sh=ST.ex.length?ST.ex.map((e,i)=>`<label class="k"><input type="checkbox" ${e[3]?'checked':''} onchange="ST.ex[${i}][3]=this.checked;save()"> ${esc(e[0])} <small>(${esc(e[2])||'Anónimo'})</small></label>`).join(''):'<p class="ref">No hay expectativas registradas en Inicio.</p>';
+const nl=ST.norms.length?ST.norms.map((n,i)=>`<label class="k"><input type="checkbox" ${n.ok?'checked':''} onchange="ST.norms[${i}].ok=this.checked;save()"> ${esc(n.t)}</label>`).join(''):'<p class="ref">No hay acuerdos registrados en Inicio.</p>';
+$('#view').innerHTML=`<div class="card"><h2>El mural de aprendizajes</h2><p class="ref">Diapositiva 32 · lo más importante que aprendí y cómo lo aplicaré</p>${['Seguridad, riesgo y auditoría','Software y tecnologías','Hacking ético, SGSI y Python'].map((t,i)=>`<b>${i+1} · ${t}</b><textarea rows="2" oninput="ST.mural[${i}]=this.value;save()">${esc(ST.mural[i])}</textarea>`).join('<br>')}</div>
+<div class="card"><h2>Evaluación de expectativas</h2><p class="ref">Diapositiva 33 · marca las expectativas cumplidas</p>${sh}</div><div class="card"><h2>¿Cumplimos nuestros acuerdos?</h2><p class="ref">Diapositiva 34</p>${nl}</div>`};
+function resumen(){const n=($('#sn')&&$('#sn').value.trim())||'Participante';const L=['Resumen de '+n+' · Módulo I: Amenazas, vulnerabilidad y ataques'];
+if(ST.ex.length)L.push('Mi expectativa: '+ST.ex.map(e=>e[0]+(e[1]?' (me servirá para '+e[1]+')':'')).join(' | '));
+if(ST.norms.length)L.push('Acuerdos propuestos: '+ST.norms.map(x=>x.t).join(' | '));
+if(ST.kh)L.push('Kahoot diagnóstico: '+ST.kh[0]+' puntos ('+ST.kh[1]+' de 5 correctas)');
+if(ST.cr)L.push('Tarjeta de salida (caso de Luis): '+ST.cr+' correctas');
+if(ST.xr)L.push('Tres ejemplos de ataques: '+ST.xr+' correctas');
+const cot=Object.keys(ST.cot).map(p=>p+' '+ST.cot[p]+'/8');if(cot.length)L.push('Lista de cotejo: '+cot.join(', '));
+const m=ST.mural.map((t,i)=>t.trim()&&((i+1)+') '+t.trim())).filter(Boolean);if(m.length)L.push('Lo que aprendí y cómo lo aplicaré: '+m.join(' '));
+return L.join('\n')}
+VIEWS.enviar=()=>{$('#view').innerHTML=`<div class="card"><h2>Publicar mi resumen en el grupo</h2><p class="ref">Diapositiva 7 · escribe tu nombre, revisa el texto y envíalo al grupo de WhatsApp del curso</p><input id="sn" placeholder="Nombre y apellido" value="${esc(ST.nom||'')}"><br><br><textarea id="sr" rows="10"></textarea><div class="row" style="margin-top:12px"><button class="b" onclick="wa()">Publicar en el grupo de WhatsApp</button><button class="g" onclick="cp()">Copiar mi resumen</button></div><p id="sm" class="ok"></p></div>`;const u=()=>{ST.nom=$('#sn').value;save();$('#sr').value=resumen()};$('#sn').oninput=u;u()};
+function wa(){window.open('https://wa.me/?text='+encodeURIComponent($('#sr').value),'_blank','noopener')}
+async function cp(){const t=$('#sr').value;try{await navigator.clipboard.writeText(t)}catch(e){$('#sr').select();document.execCommand('copy')}$('#sm').textContent='Copiado. Pégalo en el grupo de WhatsApp del curso.'}
+go('ruleta');
+</script></body></html>
