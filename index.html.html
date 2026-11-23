@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio Digital Docente | Tech Edition</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600;700&family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            black: '#0a0d14',
+                            dark: '#0f172a',
+                            card: '#161f36',
+                            border: '#1e293b',
+                            cyan: '#00f0ff',
+                            purple: '#7000ff',
+                            pink: '#ff007f',
+                            green: '#00ff66',
+                            yellow: '#ffea00'
+                        }
+                    },
+                    fontFamily: {
+                        orbitron: ['Orbitron', 'sans-serif'],
+                        rajdhani: ['Rajdhani', 'sans-serif'],
+                        code: ['Fira Code', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #050811;
+            color: #e2e8f0;
+            font-family: 'Rajdhani', sans-serif;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(112, 0, 255, 0.15), transparent 40%),
+                radial-gradient(circle at 0% 50%, rgba(0, 240, 255, 0.1), transparent 30%),
+                radial-gradient(circle at 100% 80%, rgba(255, 0, 127, 0.08), transparent 30%);
+            background-attachment: fixed;
+        }
+
+        /* Scanline Overlay */
+        .scanline {
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0, 0, 0, 0.3) 50%,
+                rgba(0, 0, 0, 0.3)
+            );
+            background-size: 100% 4px;
+        }
+
+        /* Neon Glow Effects */
+        .glow-cyan {
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+        }
+        .glow-cyan-lg {
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.6);
+        }
+        .glow-purple {
+            box-shadow: 0 0 15px rgba(112, 0, 255, 0.4);
+        }
+        .text-glow-cyan {
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.7);
+        }
+        .text-glow-purple {
+            text-shadow: 0 0 10px rgba(112, 0, 255, 0.7);
+        }
+        .text-glow-pink {
+            text-shadow: 0 0 10px rgba(255, 0, 127, 0.7);
+        }
+
+        /* Clip path tech borders */
+        .tech-card {
+            clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+        }
+        .tech-btn {
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0d14;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border: 1px solid #00f0ff;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00f0ff;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen text-lg antialiased overflow-x-hidden selection:bg-cyber-cyan selection:text-black">
+
+    <!-- Grid lines overlay -->
+    <div class="fixed inset-0 pointer-events-none opacity-10 bg-[radial-gradient(#00f0ff_1px,transparent_1px)] [background-size:24px_24px] z-0"></div>
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-cyber-black/80 border-b border-cyber-cyan/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <div class="w-10 h-10 rounded bg-cyber-cyan/10 border border-cyber-cyan flex items-center justify-center glow-cyan">
+                        <i class="fa-solid fa-microchip text-cyber-cyan text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="font-orbitron font-bold text-xl tracking-wider text-white">PORTAFOLIO<span class="text-cyber-cyan">.DOCENTE</span></span>
+                        <div class="text-[10px] font-code text-cyber-purple tracking-widest uppercase">Sistema Formativo v4.0</div>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav Buttons -->
+                <nav class="hidden md:flex space-x-1 lg:space-x-2 font-code text-sm">
+                    <a href="#hero" class="px-3 py-2 text-gray-300 hover:text-cyber-cyan hover:bg-cyber-cyan/10 rounded transition duration-200">/INICIO</a>
+                    <a href="#evidencia1" class="px-3 py-2 text-gray-300 hover:text-cyber-cyan hover:bg-cyber-cyan/10 rounded transition duration-200">/PLAN_EJECUCION</a>
+                    <a href="#evidencia2" class="px-3 py-2 text-gray-300 hover:text-cyber-cyan hover:bg-cyber-cyan/10 rounded transition duration-200">/DIAPOSITIVAS</a>
+                    <a href="#evidencia3" class="px-3 py-2 text-gray-300 hover:text-cyber-cyan hover:bg-cyber-cyan/10 rounded transition duration-200">/RECURSO_DIGITAL</a>
+                    <a href="#evidencia4" class="px-3 py-2 text-gray-300 hover:text-cyber-cyan hover:bg-cyber-cyan/10 rounded transition duration-200">/EVALUACION</a>
+                    <a href="#evidencia5" class="px-3 py-2 text-gray-300 hover:text-cyber-cyan hover:bg-cyber-cyan/10 rounded transition duration-200">/AUTORREFLEXION</a>
+                </nav>
+
+                <!-- Status Indicator -->
+                <div class="hidden lg:flex items-center space-x-2 font-code text-xs bg-cyber-card border border-cyber-border px-3 py-1.5 rounded-full">
+                    <span class="w-2.5 h-2.5 rounded-full bg-cyber-green animate-pulse"></span>
+                    <span class="text-gray-400">ESTADO: <span class="text-cyber-green">ONLINE</span></span>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="p-2 text-cyber-cyan focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-cyber-dark/95 border-b border-cyber-cyan/30 px-4 pt-2 pb-4 space-y-2 font-code text-sm">
+            <a href="#hero" class="block px-3 py-2 rounded text-gray-300 hover:bg-cyber-cyan/20">/INICIO</a>
+            <a href="#evidencia1" class="block px-3 py-2 rounded text-gray-300 hover:bg-cyber-cyan/20">/PLAN_EJECUCION</a>
+            <a href="#evidencia2" class="block px-3 py-2 rounded text-gray-300 hover:bg-cyber-cyan/20">/DIAPOSITIVAS</a>
+            <a href="#evidencia3" class="block px-3 py-2 rounded text-gray-300 hover:bg-cyber-cyan/20">/RECURSO_DIGITAL</a>
+            <a href="#evidencia4" class="block px-3 py-2 rounded text-gray-300 hover:bg-cyber-cyan/20">/EVALUACION</a>
+            <a href="#evidencia5" class="block px-3 py-2 rounded text-gray-300 hover:bg-cyber-cyan/20">/AUTORREFLEXION</a>
+        </div>
+    </header>
+
+    <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-24">
+
+        <!-- HERO SECTION / PRESENTACIÓN -->
+        <section id="hero" class="pt-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                
+                <!-- Presentación Personal -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center space-x-2 bg-cyber-purple/20 border border-cyber-purple text-cyber-purple px-4 py-1.5 rounded-full font-code text-sm">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <span>DIVISIÓN DE FORMACIÓN DOCENTE</span>
+                    </div>
+
+                    <h1 class="font-orbitron font-extrabold text-4xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-none">
+                        PORTAFOLIO <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan via-cyber-purple to-cyber-pink text-glow-cyan">DIGITAL DOCENTE</span>
+                    </h1>
+
+                    <p class="text-gray-300 text-lg leading-relaxed font-rajdhani font-semibold">
+                        Bienvenido a la evidencia sistematizada de la práctica didáctica tecnológica. Este entorno integra metodologías didácticas contemporáneas con un enfoque interactivo de vanguardia para la enseñanza superior y técnica.
+                    </p>
+
+                    <!-- User Badges / Specialty -->
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 font-code text-xs">
+                        <div class="p-3 bg-cyber-card/80 border border-cyber-border rounded hover:border-cyber-cyan transition duration-300">
+                            <div class="text-cyber-cyan font-bold mb-1"><i class="fa-solid fa-terminal mr-1"></i> DOCENCIA TECH</div>
+                            <div class="text-gray-400">Diseño Didáctico</div>
+                        </div>
+                        <div class="p-3 bg-cyber-card/80 border border-cyber-border rounded hover:border-cyber-purple transition duration-300">
+                            <div class="text-cyber-purple font-bold mb-1"><i class="fa-solid fa-network-wired mr-1"></i> REDES & TI</div>
+                            <div class="text-gray-400">Infraestructura</div>
+                        </div>
+                        <div class="p-3 bg-cyber-card/80 border border-cyber-border rounded hover:border-cyber-pink transition duration-300">
+                            <div class="text-cyber-pink font-bold mb-1"><i class="fa-solid fa-shield-halved mr-1"></i> EVALUACIÓN</div>
+                            <div class="text-gray-400">Basada en Competencias</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Docente Card / Tech Badge -->
+                <div class="lg:col-span-5">
+                    <div class="relative bg-cyber-card border border-cyber-cyan/40 p-6 rounded-2xl tech-card glow-cyan">
+                        <div class="absolute -top-3 right-6 bg-cyber-cyan text-black font-code font-bold text-xs px-3 py-1 rounded shadow">
+                            VERIFIED_INSTRUCTOR
+                        </div>
+
+                        <div class="flex items-center space-x-4 mb-6">
+                            <div class="relative">
+                                <div class="w-20 h-20 rounded-xl bg-gradient-to-br from-cyber-cyan to-cyber-purple p-1">
+                                    <div class="w-full h-full bg-cyber-black rounded-lg flex items-center justify-center overflow-hidden">
+                                        <i class="fa-solid fa-user-gear text-4xl text-cyber-cyan"></i>
+                                    </div>
+                                </div>
+                                <span class="absolute bottom-0 right-0 w-4 h-4 bg-cyber-green rounded-full border-2 border-cyber-black"></span>
+                            </div>
+                            <div>
+                                <h3 class="font-orbitron font-bold text-xl text-white">Facilitador / Docente</h3>
+                                <p class="text-cyber-cyan font-code text-sm">Formación Profesional & Didáctica</p>
+                                <p class="text-gray-400 text-xs mt-1"><i class="fa-solid fa-location-dot mr-1"></i> República Dominicana</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3 font-code text-xs border-t border-cyber-border pt-4">
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">EVALUACIÓN DIDÁCTICA:</span>
+                                <span class="text-cyber-green font-bold">100 / 100</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">MÉTODO:</span>
+                                <span class="text-cyber-cyan">Aprender Haciendo</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-400">ENFOQUE:</span>
+                                <span class="text-cyber-purple">Basado en Competencias</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-6">
+                            <a href="#evidencia1" class="block w-full text-center bg-gradient-to-r from-cyber-cyan to-cyber-purple text-black font-orbitron font-bold py-3 px-4 rounded hover:opacity-90 transition glow-cyan">
+                                EXPLORAR EVIDENCIAS <i class="fa-solid fa-arrow-down ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ÍNDICE INTERACTIVO CON CONTADORES -->
+        <section class="border-t border-b border-cyber-border/60 py-10 bg-cyber-dark/40 rounded-3xl backdrop-blur-sm">
+            <div class="text-center mb-8">
+                <h2 class="font-orbitron text-2xl font-bold text-white tracking-wide">
+                    <span class="text-cyber-cyan">&lt;</span> ÍNDICE DE EVIDENCIAS <span class="text-cyber-cyan">&gt;</span>
+                </h2>
+                <p class="text-gray-400 text-sm font-code">Seleccione cualquier módulo para acceder directamente al contenido didáctico</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                <!-- Evidencia 1 Button -->
+                <a href="#evidencia1" class="group p-4 bg-cyber-card/60 border border-cyber-border hover:border-cyber-cyan rounded-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="font-code font-bold text-cyber-cyan text-sm">01</span>
+                        <i class="fa-solid fa-clipboard-list text-gray-500 group-hover:text-cyber-cyan text-xl transition"></i>
+                    </div>
+                    <h4 class="font-orbitron font-bold text-white text-sm group-hover:text-cyber-cyan">Plan de Ejecución</h4>
+                    <p class="text-gray-400 text-xs mt-1">Estructura didáctica y microenfoque</p>
+                </a>
+
+                <!-- Evidencia 2 Button -->
+                <a href="#evidencia2" class="group p-4 bg-cyber-card/60 border border-cyber-border hover:border-cyber-purple rounded-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="font-code font-bold text-cyber-purple text-sm">02</span>
+                        <i class="fa-solid fa-file-powerpoint text-gray-500 group-hover:text-cyber-purple text-xl transition"></i>
+                    </div>
+                    <h4 class="font-orbitron font-bold text-white text-sm group-hover:text-cyber-purple">Diapositivas</h4>
+                    <p class="text-gray-400 text-xs mt-1">Secuencia metodológica en 5 fases</p>
+                </a>
+
+                <!-- Evidencia 3 Button -->
+                <a href="#evidencia3" class="group p-4 bg-cyber-card/60 border border-cyber-border hover:border-cyber-pink rounded-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="font-code font-bold text-cyber-pink text-sm">03</span>
+                        <i class="fa-solid fa-box-open text-gray-500 group-hover:text-cyber-pink text-xl transition"></i>
+                    </div>
+                    <h4 class="font-orbitron font-bold text-white text-sm group-hover:text-cyber-pink">Recurso Digital</h4>
+                    <p class="text-gray-400 text-xs mt-1">Visor embebido interactivo HTML</p>
+                </a>
+
+                <!-- Evidencia 4 Button -->
+                <a href="#evidencia4" class="group p-4 bg-cyber-card/60 border border-cyber-border hover:border-cyber-green rounded-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="font-code font-bold text-cyber-green text-sm">04</span>
+                        <i class="fa-solid fa-square-check text-gray-500 group-hover:text-cyber-green text-xl transition"></i>
+                    </div>
+                    <h4 class="font-orbitron font-bold text-white text-sm group-hover:text-cyber-green">Evaluación</h4>
+                    <p class="text-gray-400 text-xs mt-1">Rúbrica interactiva por criterios</p>
+                </a>
+
+                <!-- Evidencia 5 Button -->
+                <a href="#evidencia5" class="group p-4 bg-cyber-card/60 border border-cyber-border hover:border-cyber-yellow rounded-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="font-code font-bold text-cyber-yellow text-sm">05</span>
+                        <i class="fa-solid fa-brain text-gray-500 group-hover:text-cyber-yellow text-xl transition"></i>
+                    </div>
+                    <h4 class="font-orbitron font-bold text-white text-sm group-hover:text-cyber-yellow">Autorreflexión</h4>
+                    <p class="text-gray-400 text-xs mt-1">Preguntas clave (Tallaferro 2006)</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- EVIDENCIA 1: PLAN DE EJECUCIÓN -->
+        <section id="evidencia1" class="space-y-6">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-lg bg-cyber-cyan/20 border border-cyber-cyan flex items-center justify-center font-orbitron font-bold text-cyber-cyan">
+                    01
+                </div>
+                <div>
+                    <h2 class="font-orbitron font-bold text-2xl text-white">EVIDENCIA 1: PLAN DE EJECUCIÓN</h2>
+                    <p class="text-gray-400 text-sm">Planificación Didáctica del Tema de Práctica</p>
+                </div>
+            </div>
+
+            <!-- Card contenedora del Plan -->
+            <div class="bg-cyber-card border border-cyber-border rounded-2xl p-6 space-y-6 shadow-xl">
+                <!-- Encabezado del Plan -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-code text-sm bg-cyber-dark p-4 rounded-xl border border-cyber-border">
+                    <div>
+                        <span class="text-gray-400 block text-xs">CURSO / MODULE:</span>
+                        <span class="text-cyber-cyan font-semibold">Desarrollo Web & Tecnologías Digitales</span>
+                    </div>
+                    <div>
+                        <span class="text-gray-400 block text-xs">TEMA DE LA SESIÓN:</span>
+                        <span class="text-white font-semibold">Maquetación Moderna e Interactividad HTML/CSS</span>
+                    </div>
+                    <div>
+                        <span class="text-gray-400 block text-xs">DURACIÓN TOTAL:</span>
+                        <span class="text-cyber-purple font-semibold">30 Minutos (Práctica Didáctica)</span>
+                    </div>
+                </div>
+
+                <!-- Objetivo de Aprendizaje -->
+                <div class="bg-cyber-cyan/5 border-l-4 border-cyber-cyan p-4 rounded-r-xl">
+                    <h4 class="font-orbitron text-sm font-bold text-cyber-cyan uppercase mb-1"><i class="fa-solid fa-bullseye mr-2"></i>Objetivo General de Aprendizaje:</h4>
+                    <p class="text-gray-200 text-sm">
+                        Al finalizar la sesión, los participantes serán capaces de estructurar un recurso web interactivo en HTML5 aplicando Tailwind CSS y mejores prácticas de diseño didáctico, sin margen de error según la guía técnica establecida.
+                    </p>
+                </div>
+
+                <!-- Tabla Interactiva del Plan -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left font-rajdhani text-sm border-collapse">
+                        <thead>
+                            <tr class="bg-cyber-dark text-cyber-cyan font-orbitron text-xs tracking-wider border-b border-cyber-border">
+                                <th class="p-3">ETAPAS / SECUENCIA</th>
+                                <th class="p-3">ACTIVIDADES DEL FACILITADOR</th>
+                                <th class="p-3">ACTIVIDADES DEL PARTICIPANTE</th>
+                                <th class="p-3">MEDIOS Y RECURSOS</th>
+                                <th class="p-3">TIEMPO</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-cyber-border/60 text-gray-300">
+                            <!-- Inicio -->
+                            <tr class="hover:bg-cyber-dark/50 transition">
+                                <td class="p-3 font-semibold text-cyber-cyan font-code">
+                                    <i class="fa-solid fa-play mr-1 text-xs"></i> INICIO
+                                </td>
+                                <td class="p-3">
+                                    • Da la bienvenida y establece empatía.<br>
+                                    • Presenta el tema y el objetivo de la sesión.<br>
+                                    • Indaga conocimientos previos mediante preguntas directas.<br>
+                                    • Acuerda reglas de operación e interacción.
+                                </td>
+                                <td class="p-3">
+                                    • Responden a la bienvenida.<br>
+                                    • Prestan atención a los objetivos.<br>
+                                    • Comparten sus saberes previos.<br>
+                                    • Asumen los acuerdos establecidos.
+                                </td>
+                                <td class="p-3 text-xs font-code text-gray-400">
+                                    Diapositivas interactiva, Data Show, Portafolio Digital.
+                                </td>
+                                <td class="p-3 font-code text-cyber-cyan">5 Min</td>
+                            </tr>
+                            <!-- Desarrollo -->
+                            <tr class="hover:bg-cyber-dark/50 transition">
+                                <td class="p-3 font-semibold text-cyber-purple font-code">
+                                    <i class="fa-solid fa-gear mr-1 text-xs"></i> DESARROLLO
+                                </td>
+                                <td class="p-3">
+                                    • Explica los conceptos clave de la maquetación HTML5.<br>
+                                    • Muestra la estructura de un documento web.<br>
+                                    • Realiza demostración guiada paso a paso.<br>
+                                    • Retroalimenta y monitorea el avance individual.
+                                </td>
+                                <td class="p-3">
+                                    • Analizan el contenido expuesto.<br>
+                                    • Realizan ejercicios prácticos en su equipo.<br>
+                                    • Formulan dudas y corrigen según sugerencias.
+                                </td>
+                                <td class="p-3 text-xs font-code text-gray-400">
+                                    Editor de Código, Recurso Digital HTML embebido, Ejercicios.
+                                </td>
+                                <td class="p-3 font-code text-cyber-purple">18 Min</td>
+                            </tr>
+                            <!-- Cierre -->
+                            <tr class="hover:bg-cyber-dark/50 transition">
+                                <td class="p-3 font-semibold text-cyber-pink font-code">
+                                    <i class="fa-solid fa-flag-checkered mr-1 text-xs"></i> CIERRE
+                                </td>
+                                <td class="p-3">
+                                    • Aplica el instrumento de evaluación (Rúbrica).<br>
+                                    • Realiza síntesis de los logros alcanzados.<br>
+                                    • Evalúa el cumplimiento de las reglas y el objetivo.<br>
+                                    • Anuncia el próximo tema a desarrollar.
+                                </td>
+                                <td class="p-3">
+                                    • Completan la autoevaluación / coevaluación.<br>
+                                    • Expresan conclusiones sobre lo aprendido.<br>
+                                    • Verifican el logro de sus objetivos.
+                                </td>
+                                <td class="p-3 text-xs font-code text-gray-400">
+                                    Rúbrica digital interactiva, Cuestionario.
+                                </td>
+                                <td class="p-3 font-code text-cyber-pink">7 Min</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- EVIDENCIA 2: DISEÑO DE LAS DIAPOSITIVAS -->
+        <section id="evidencia2" class="space-y-6">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-lg bg-cyber-purple/20 border border-cyber-purple flex items-center justify-center font-orbitron font-bold text-cyber-purple">
+                    02
+                </div>
+                <div>
+                    <h2 class="font-orbitron font-bold text-2xl text-white">EVIDENCIA 2: DISEÑO DE DIAPOSITIVAS</h2>
+                    <p class="text-gray-400 text-sm">Secuencia Metodológica Completa de la Práctica Didáctica</p>
+                </div>
+            </div>
+
+            <!-- Presentation Interactive Viewer -->
+            <div class="bg-cyber-card border border-cyber-purple/40 rounded-2xl p-6 space-y-4">
+                
+                <!-- Controls Header -->
+                <div class="flex flex-wrap justify-between items-center gap-4 bg-cyber-dark p-3 rounded-xl border border-cyber-border">
+                    <span class="font-code text-xs text-gray-300">
+                        DIAPOSITIVA <span id="slide-num" class="text-cyber-purple font-bold">1</span> DE 5
+                    </span>
+
+                    <!-- Slide Tabs -->
+                    <div class="flex flex-wrap gap-2 text-xs font-code">
+                        <button onclick="setSlide(0)" class="slide-tab px-3 py-1 rounded border border-cyber-purple bg-cyber-purple/20 text-white">1. Inicio Curso</button>
+                        <button onclick="setSlide(1)" class="slide-tab px-3 py-1 rounded border border-cyber-border text-gray-400">2. Inicio Sesión</button>
+                        <button onclick="setSlide(2)" class="slide-tab px-3 py-1 rounded border border-cyber-border text-gray-400">3. Desarrollo</button>
+                        <button onclick="setSlide(3)" class="slide-tab px-3 py-1 rounded border border-cyber-border text-gray-400">4. Cierre Sesión</button>
+                        <button onclick="setSlide(4)" class="slide-tab px-3 py-1 rounded border border-cyber-border text-gray-400">5. Cierre Curso</button>
+                    </div>
+
+                    <div class="flex space-x-2">
+                        <button onclick="prevSlide()" class="p-2 bg-cyber-border hover:bg-cyber-purple text-white rounded transition"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button onclick="nextSlide()" class="p-2 bg-cyber-border hover:bg-cyber-purple text-white rounded transition"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- Slide Screen Box -->
+                <div class="relative bg-gradient-to-b from-cyber-dark to-cyber-black border-2 border-cyber-purple/50 rounded-xl p-8 min-h-[350px] flex flex-col justify-between overflow-hidden shadow-2xl">
+                    <!-- Tech background graphic inside slide -->
+                    <div class="absolute right-4 top-4 text-cyber-purple/10 text-9xl pointer-events-none font-orbitron font-extrabold">
+                        SLIDE
+                    </div>
+
+                    <!-- Slide Content -->
+                    <div id="slide-content" class="relative z-10 space-y-4">
+                        <!-- Loaded dynamically via JS -->
+                    </div>
+
+                    <!-- Slide Footer -->
+                    <div class="relative z-10 pt-6 border-t border-cyber-border/40 flex justify-between items-center text-xs font-code text-gray-500">
+                        <span>DIVISIÓN DE FORMACIÓN DOCENTE</span>
+                        <span id="slide-title-foot">SECUENCIA: INICIO DE CURSO</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EVIDENCIA 3: RECURSOS Y MATERIALES DIDÁCTICOS -->
+        <section id="evidencia3" class="space-y-6">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-lg bg-cyber-pink/20 border border-cyber-pink flex items-center justify-center font-orbitron font-bold text-cyber-pink">
+                    03
+                </div>
+                <div>
+                    <h2 class="font-orbitron font-bold text-2xl text-white">EVIDENCIA 3: RECURSOS Y MATERIALES DIDÁCTICOS</h2>
+                    <p class="text-gray-400 text-sm">Visualizador del Recurso Digital Interactivo (.HTML)</p>
+                </div>
+            </div>
+
+            <!-- Visor del Recurso Didáctico Digital -->
+            <div class="bg-cyber-card border border-cyber-pink/40 rounded-2xl p-6 space-y-4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-cyber-dark p-4 rounded-xl border border-cyber-border">
+                    <div>
+                        <h4 class="font-orbitron font-bold text-white text-base">RECURSO DIGITAL INTEGRADOR (.HTML)</h4>
+                        <p class="text-xs font-code text-gray-400">Objeto de Aprendizaje Interactivo - Simulación de Práctica Didáctica</p>
+                    </div>
+                    <div class="flex space-x-3">
+                        <button onclick="reloadIframe()" class="px-3 py-1.5 bg-cyber-border hover:bg-cyber-pink hover:text-black text-xs font-code text-white rounded transition flex items-center gap-2">
+                            <i class="fa-solid fa-rotate-right"></i> Recargar
+                        </button>
+                        <button onclick="openResourceNewTab()" class="px-4 py-1.5 bg-cyber-pink text-black font-code font-bold text-xs rounded hover:opacity-90 transition glow-purple flex items-center gap-2">
+                            <i class="fa-solid fa-up-right-from-square"></i> Abrir en pantalla completa
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Window Frame -->
+                <div class="border border-cyber-border rounded-xl overflow-hidden bg-cyber-black">
+                    <!-- Browser Bar -->
+                    <div class="bg-cyber-dark px-4 py-2 flex items-center space-x-2 border-b border-cyber-border">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        <span class="ml-4 font-code text-xs text-gray-400 bg-cyber-black px-3 py-1 rounded w-full border border-cyber-border/40 truncate">
+                            https://recurso-didactico-digital.local/index.html
+                        </span>
+                    </div>
+                    
+                    <!-- Embedded Resource (Live Demo) -->
+                    <div class="relative w-full h-[400px]">
+                        <iframe id="resource-frame" class="w-full h-full border-0" title="Recurso Digital Didáctico"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EVIDENCIA 4: INSTRUMENTO DE EVALUACIÓN -->
+        <section id="evidencia4" class="space-y-6">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-lg bg-cyber-green/20 border border-cyber-green flex items-center justify-center font-orbitron font-bold text-cyber-green">
+                    04
+                </div>
+                <div>
+                    <h2 class="font-orbitron font-bold text-2xl text-white">EVIDENCIA 4: INSTRUMENTO DE EVALUACIÓN</h2>
+                    <p class="text-gray-400 text-sm">Rúbrica de Evaluación Dinámica por Competencias</p>
+                </div>
+            </div>
+
+            <!-- Card Rúbrica -->
+            <div class="bg-cyber-card border border-cyber-green/40 rounded-2xl p-6 space-y-6">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-cyber-dark p-4 rounded-xl border border-cyber-border">
+                    <div>
+                        <h4 class="font-orbitron font-bold text-white">RÚBRICA DE EVALUACIÓN DE LA PRÁCTICA DIDÁCTICA</h4>
+                        <p class="text-xs font-code text-gray-400">Seleccione el nivel en cada criterio para calcular el score automático</p>
+                    </div>
+                    <div class="bg-cyber-black border border-cyber-green px-4 py-2 rounded-xl text-center">
+                        <span class="text-xs font-code text-gray-400 block">PUNTUACIÓN TOTAL</span>
+                        <span id="rubric-total" class="font-orbitron text-2xl font-bold text-cyber-green">100 / 100</span>
+                    </div>
+                </div>
+
+                <!-- Criterios de Evaluación Interactive Table -->
+                <div class="space-y-4 font-rajdhani">
+                    
+                    <!-- Criterio 1 -->
+                    <div class="bg-cyber-dark/80 p-4 rounded-xl border border-cyber-border space-y-2">
+                        <div class="flex justify-between items-center">
+                            <h5 class="font-orbitron font-bold text-white text-sm">1. Dominio Técnico y Presentación del Tema (30 pts)</h5>
+                            <span id="score-c1" class="font-code text-cyber-green font-bold text-sm">30 pts</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-code">
+                            <button onclick="setRubric(1, 30, this)" class="r-btn-1 p-3 rounded border border-cyber-green bg-cyber-green/20 text-white text-left">
+                                <b class="text-cyber-green block">Excelente (30 pts)</b> Exposición fluida, dominio absoluto del contenido y respuesta certera.
+                            </button>
+                            <button onclick="setRubric(1, 20, this)" class="r-btn-1 p-3 rounded border border-cyber-border text-gray-400 text-left">
+                                <b class="block">Bueno (20 pts)</b> Domina el tema con leves titubeos.
+                            </button>
+                            <button onclick="setRubric(1, 10, this)" class="r-btn-1 p-3 rounded border border-cyber-border text-gray-400 text-left">
+                                <b class="block">En Proceso (10 pts)</b> Muestra inseguridad en los conceptos.
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Criterio 2 -->
+                    <div class="bg-cyber-dark/80 p-4 rounded-xl border border-cyber-border space-y-2">
+                        <div class="flex justify-between items-center">
+                            <h5 class="font-orbitron font-bold text-white text-sm">2. Uso de Recursos Didácticos Digitales (25 pts)</h5>
+                            <span id="score-c2" class="font-code text-cyber-green font-bold text-sm">25 pts</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-code">
+                            <button onclick="setRubric(2, 25, this)" class="r-btn-2 p-3 rounded border border-cyber-green bg-cyber-green/20 text-white text-left">
+                                <b class="text-cyber-green block">Excelente (25 pts)</b> Integración innovadora, funcional e interactiva de medios digitales.
+                            </button>
+                            <button onclick="setRubric(2, 15, this)" class="r-btn-2 p-3 rounded border border-cyber-border text-gray-400 text-left">
+                                <b class="block">Bueno (15 pts)</b> Utiliza recursos didácticos de forma convencional.
+                            </button>
+                            <button onclick="setRubric(2, 5, this)" class="r-btn-2 p-3 rounded border border-cyber-border text-gray-400 text-left">
+                                <b class="block">En Proceso (5 pts)</b> Escaso uso de medios didácticos de apoyo.
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Criterio 3 -->
+                    <div class="bg-cyber-dark/80 p-4 rounded-xl border border-cyber-border space-y-2">
+                        <div class="flex justify-between items-center">
+                            <h5 class="font-orbitron font-bold text-white text-sm">3. Manejo del Tiempo y Secuencia Didáctica (25 pts)</h5>
+                            <span id="score-c3" class="font-code text-cyber-green font-bold text-sm">25 pts</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-code">
+                            <button onclick="setRubric(3, 25, this)" class="r-btn-3 p-3 rounded border border-cyber-green bg-cyber-green/20 text-white text-left">
+                                <b class="text-cyber-green block">Excelente (25 pts)</b> Cumple rigurosamente las fases (Inicio, Desarrollo y Cierre).
+                            </button>
+                            <button onclick="setRubric(3, 15, this)" class="r-btn-3 p-3 rounded border border-cyber-border text-gray-400 text-left">
+                                <b class="block">Bueno (15 pts)</b> Desviación menor en la gestión del tiempo.
+                            </button>
+                            <button onclick="setRubric(3, 5, this)" class="r-btn-3 p-3 rounded border border-cyber-border text-gray-400 text-left">
+                                <b class="block">En Proceso (5 pts)</b> Desorganización evidente en las secuencias.
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Criterio 4 -->
+                    <div class="bg-cyber-dark/80 p-4 rounded-xl border border-cyber-border space-y-2">
+                        <div class="flex justify-between items-center">
+                            <h5 class="font-orbitron font-bold text-white text-sm">4. Participación e Interactividad con Alumnos (20 pts)</h5>
+                            <span id="score-c4" class="font-code text-cyber-green font-bold text-sm">20 pts</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-code">
+                            <button onclick="setRubric(4, 20, this)" class="r-btn-4 p-3 rounded border border-cyber-green bg-cyber-green/20 text-white text-left">
+                                <b class="text-cyber-green block">Excelente (20 pts)</b> Mantiene constante interacción, motivación y retroalimentación.
+                            </button>
+                            <button onclick="setRubric(4, 12, this)" class="r-btn-4 p-3 rounded border border-cyber-border text-gray-400 text-left">
+                                <b class="block">Bueno (12 pts)</b> Participación moderada del grupo.
+                            </button>
+                            <button onclick="setRubric(4, 5, this)" class="r-btn-4 p-3 rounded border border-cyber-border text-gray-400 text-left">
+                                <b class="block">En Proceso (5 pts)</b> Clase unidireccional sin interacción activa.
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- EVIDENCIA 5: AUTORREFLEXIÓN SOBRE LA PRÁCTICA DIDÁCTICA -->
+        <section id="evidencia5" class="space-y-6">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-lg bg-cyber-yellow/20 border border-cyber-yellow flex items-center justify-center font-orbitron font-bold text-cyber-yellow">
+                    05
+                </div>
+                <div>
+                    <h2 class="font-orbitron font-bold text-2xl text-white">EVIDENCIA 5: AUTORREFLEXIÓN DIDÁCTICA</h2>
+                    <p class="text-gray-400 text-sm">Análisis Guiado según la Propuesta de Tallaferro (2006)</p>
+                </div>
+            </div>
+
+            <!-- Terminal / Interactive Accordion for 6 Questions -->
+            <div class="bg-cyber-card border border-cyber-yellow/40 rounded-2xl p-6 space-y-4">
+                
+                <div class="bg-cyber-black border border-cyber-border p-4 rounded-xl font-code text-xs text-cyber-yellow flex items-center gap-3">
+                    <i class="fa-solid fa-terminal text-lg"></i>
+                    <span>SISTEMA DE REFLEXIÓN METACOGNITIVA // GUIADO POR TALLAFERRO (2006)</span>
+                </div>
+
+                <div class="space-y-3 font-rajdhani">
+                    
+                    <!-- Q1 -->
+                    <div class="border border-cyber-border rounded-xl bg-cyber-dark overflow-hidden">
+                        <button onclick="toggleAccordion('q1')" class="w-full p-4 text-left font-orbitron font-bold text-white flex justify-between items-center hover:text-cyber-yellow transition">
+                            <span>1. ¿Cómo se sintió mientras desarrollaba la práctica didáctica?</span>
+                            <i id="icon-q1" class="fa-solid fa-chevron-down text-cyber-yellow"></i>
+                        </button>
+                        <div id="q1" class="hidden p-4 border-t border-cyber-border/60 text-gray-300 text-sm leading-relaxed bg-cyber-black/40">
+                            Me sentí con un elevado nivel de seguridad y entusiasmo profesional. La combinación de una planificación estructurada con recursos digitales dinámicos generó un entorno de aprendizaje estimulante. A pesar del reto de gestionar los tiempos con precisión rigurosa, la interacción activa con los participantes facilitó un desarrollo fluido y altamente satisfactorio.
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="border border-cyber-border rounded-xl bg-cyber-dark overflow-hidden">
+                        <button onclick="toggleAccordion('q2')" class="w-full p-4 text-left font-orbitron font-bold text-white flex justify-between items-center hover:text-cyber-yellow transition">
+                            <span>2. ¿Cuáles considera que son sus fortalezas en el proceso de conducción?</span>
+                            <i id="icon-q2" class="fa-solid fa-chevron-down text-cyber-yellow"></i>
+                        </button>
+                        <div id="q2" class="hidden p-4 border-t border-cyber-border/60 text-gray-300 text-sm leading-relaxed bg-cyber-black/40">
+                            Entre mis principales fortalezas destacan: la claridad expositiva y la adaptación del lenguaje técnico a un nivel didáctico accesible; el dominio de plataformas y medios tecnológicos interactivos; la capacidad para crear un clima de confianza que promueve las preguntas; y el control metodológico riguroso del plan de ejecución.
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="border border-cyber-border rounded-xl bg-cyber-dark overflow-hidden">
+                        <button onclick="toggleAccordion('q3')" class="w-full p-4 text-left font-orbitron font-bold text-white flex justify-between items-center hover:text-cyber-yellow transition">
+                            <span>3. ¿Cuáles aspectos de la práctica didáctica le llaman más la atención?</span>
+                            <i id="icon-q3" class="fa-solid fa-chevron-down text-cyber-yellow"></i>
+                        </button>
+                        <div id="q3" class="hidden p-4 border-t border-cyber-border/60 text-gray-300 text-sm leading-relaxed bg-cyber-black/40">
+                            Lo que más me impacta es el momento de la comprobación del aprendizaje ("el clic del participante"), cuando la teoría se convierte en habilidad práctica mediante el uso de recursos tecnológicos. Asimismo, me fascina cómo la aplicación sistemática de las micro-secuencias didácticas garantiza la efectividad de la sesión.
+                        </div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div class="border border-cyber-border rounded-xl bg-cyber-dark overflow-hidden">
+                        <button onclick="toggleAccordion('q4')" class="w-full p-4 text-left font-orbitron font-bold text-white flex justify-between items-center hover:text-cyber-yellow transition">
+                            <span>4. ¿Cuáles aspectos o criterios considera que necesita fortalecer?</span>
+                            <i id="icon-q4" class="fa-solid fa-chevron-down text-cyber-yellow"></i>
+                        </button>
+                        <div id="q4" class="hidden p-4 border-t border-cyber-border/60 text-gray-300 text-sm leading-relaxed bg-cyber-black/40">
+                            Reconozco la necesidad de optimizar aún más la dosificación del tiempo en la fase de desarrollo práctico para permitir una retroalimentación individualizada más profunda a participantes con diferentes ritmos de aprendizaje, así como incorporar más dinámicas de coevaluación entre pares.
+                        </div>
+                    </div>
+
+                    <!-- Q5 -->
+                    <div class="border border-cyber-border rounded-xl bg-cyber-dark overflow-hidden">
+                        <button onclick="toggleAccordion('q5')" class="w-full p-4 text-left font-orbitron font-bold text-white flex justify-between items-center hover:text-cyber-yellow transition">
+                            <span>5. ¿Qué ha aprendido del proceso de conducción?</span>
+                            <i id="icon-q5" class="fa-solid fa-chevron-down text-cyber-yellow"></i>
+                        </button>
+                        <div id="q5" class="hidden p-4 border-t border-cyber-border/60 text-gray-300 text-sm leading-relaxed bg-cyber-black/40">
+                            He comprobado que la enseñanza no es una mera transmisión de contenidos, sino un proceso de facilitación donde la preparación rigurosa del docente es el pilar que otorga flexibilidad y naturalidad en el aula. He aprendido a leer la energía del grupo y a ajustar el ritmo metodológico según las necesidades emergentes.
+                        </div>
+                    </div>
+
+                    <!-- Q6 -->
+                    <div class="border border-cyber-border rounded-xl bg-cyber-dark overflow-hidden">
+                        <button onclick="toggleAccordion('q6')" class="w-full p-4 text-left font-orbitron font-bold text-white flex justify-between items-center hover:text-cyber-yellow transition">
+                            <span>6. Si pudiera cambiar algún aspecto de la práctica, ¿cuál sería y por qué?</span>
+                            <i id="icon-q6" class="fa-solid fa-chevron-down text-cyber-yellow"></i>
+                        </button>
+                        <div id="q6" class="hidden p-4 border-t border-cyber-border/60 text-gray-300 text-sm leading-relaxed bg-cyber-black/40">
+                            Incrementaría la proporción de tiempo destinada al taller práctico guiado, extendiendo la sesión o simplificando la introducción teórica. Esto responde a la evidencia de que el aprendizaje tecnológico se consolida de manera óptima a través de la experimentación directa y la corrección inmediata de errores.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE ENTREGA Y ENLACE -->
+        <section class="bg-gradient-to-r from-cyber-card via-cyber-dark to-cyber-card border border-cyber-cyan/30 rounded-3xl p-8 text-center space-y-4">
+            <h3 class="font-orbitron font-bold text-2xl text-white">ENLACE DEL PORTAFOLIO DIGITAL</h3>
+            <p class="text-gray-400 text-sm max-w-2xl mx-auto font-code">
+                Este portafolio está optimizado para publicarse en <b>GitHub Pages</b> como un archivo independiente denominado <code>index.html</code>.
+            </p>
+            
+            <div class="max-w-xl mx-auto flex items-center bg-cyber-black border border-cyber-cyan/50 rounded-xl p-2 font-code text-xs">
+                <input id="portfolio-link" type="text" readonly value="https://usuario.github.io/portafolio-docente-digital/" class="bg-transparent text-cyber-cyan w-full px-3 focus:outline-none">
+                <button onclick="copyLink()" class="bg-cyber-cyan text-black px-4 py-2 rounded-lg font-bold hover:bg-white transition flex items-center gap-1">
+                    <i class="fa-solid fa-copy"></i> Copiar
+                </button>
+            </div>
+            <div id="copy-toast" class="hidden text-cyber-green text-xs font-code">¡Enlace copiado al portapapeles exitosamente!</div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-cyber-border bg-cyber-black py-8 mt-20 font-code text-xs text-gray-400">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-3">
+            <div class="flex justify-center items-center space-x-2 text-cyber-cyan font-orbitron font-bold text-sm">
+                <i class="fa-solid fa-microchip"></i>
+                <span>DIVISIÓN DE FORMACIÓN DOCENTE</span>
+            </div>
+            <p>© 2026 Portafolio Digital Docente. Todos los derechos reservados. Diseñado para la Excelencia Didáctica.</p>
+            <div class="text-[10px] text-gray-600">BUILD: CYBERPUNK_V4.0 // DEPLOYED_FOR_GITHUB_PAGES</div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // -------------------------------------------------------------
+        // EVIDENCIA 2: SLIDE SYSTEM DATA & LOGIC
+        // -------------------------------------------------------------
+        const slidesData = [
+            {
+                phase: "FASE 1: INICIO DE CURSO",
+                title: "Bienvenida, Acuerdos y Encuadre General",
+                bullets: [
+                    "Presentación del facilitador y dinámica de rompimiento de hielo.",
+                    "Presentación del programa general del curso y competencias a desarrollar.",
+                    "Establecimiento participativo de las normas de convivencia y operacionalización.",
+                    "Levantamiento de expectativas y evaluación diagnóstica inicial."
+                ],
+                icon: "fa-door-open",
+                color: "text-cyber-cyan"
+            },
+            {
+                phase: "FASE 2: INICIO DE SESIÓN",
+                title: "Introducción y Motivación del Tema",
+                bullets: [
+                    "Retroalimentación breve de la sesión anterior y enlace al tema actual.",
+                    "Presentación del tema: Maquetación HTML e Interactividad Didáctica.",
+                    "Enunciado claro del Objetivo de Aprendizaje de la sesión.",
+                    "Activación de conocimientos previos a través de preguntas motivadoras."
+                ],
+                icon: "fa-bolt",
+                color: "text-cyber-purple"
+            },
+            {
+                phase: "FASE 3: DESARROLLO DE LA SESIÓN",
+                title: "Núcleo Didáctico y Práctica Guiada",
+                bullets: [
+                    "Exposición teórica estructurada de contenidos mediante recurso interactivo.",
+                    "Demostración procedimental paso a paso por el facilitador.",
+                    "Ejercitación práctica individual/grupal por parte de los participantes.",
+                    "Monitoreo continuo y retroalimentación correctiva inmediata."
+                ],
+                icon: "fa-code",
+                color: "text-cyber-pink"
+            },
+            {
+                phase: "FASE 4: CIERRE DE SESIÓN",
+                title: "Evaluación y Sintesis de Aprendizaje",
+                bullets: [
+                    "Síntesis de los puntos clave elaborada de manera conjunta.",
+                    "Aplicación de la Rúbrica de Evaluación para verificar el logro del objetivo.",
+                    "Evaluación del cumplimiento de las reglas acordadas para la sesión.",
+                    "Anuncio del tema subsiguiente y asignación de lecturas previas."
+                ],
+                icon: "fa-circle-check",
+                color: "text-cyber-green"
+            },
+            {
+                phase: "FASE 5: CIERRE DE CURSO",
+                title: "Evaluación Final y Conclusión de Formación",
+                bullets: [
+                    "Resumen general de las competencias globales alcanzadas durante el módulo.",
+                    "Evaluación final de cumplimiento de expectativas iniciales.",
+                    "Entrega de calificaciones y retroalimentación formativa de cierre.",
+                    "Exhortación a la educación continua y cierre formal del curso."
+                ],
+                icon: "fa-trophy",
+                color: "text-cyber-yellow"
+            }
+        ];
+
+        let currentSlide = 0;
+
+        function renderSlide() {
+            const data = slidesData[currentSlide];
+            const container = document.getElementById('slide-content');
+            document.getElementById('slide-num').innerText = currentSlide + 1;
+            document.getElementById('slide-title-foot').innerText = data.phase;
+
+            let bulletsHtml = data.bullets.map(b => `
+                <li class="flex items-start space-x-3">
+                    <i class="fa-solid fa-chevron-right ${data.color} mt-1 text-xs"></i>
+                    <span>${b}</span>
+                </li>
+            `).join('');
+
+            container.innerHTML = `
+                <div class="inline-flex items-center space-x-2 text-xs font-code font-bold ${data.color} bg-cyber-black px-3 py-1 rounded border border-cyber-border">
+                    <i class="fa-solid ${data.icon}"></i>
+                    <span>${data.phase}</span>
+                </div>
+                <h3 class="font-orbitron font-bold text-2xl text-white">${data.title}</h3>
+                <ul class="space-y-3 font-rajdhani text-gray-300 text-base pt-2">
+                    ${bulletsHtml}
+                </ul>
+            `;
+
+            // Update tabs styling
+            const tabs = document.querySelectorAll('.slide-tab');
+            tabs.forEach((tab, index) => {
+                if(index === currentSlide) {
+                    tab.className = "slide-tab px-3 py-1 rounded border border-cyber-purple bg-cyber-purple/20 text-white";
+                } else {
+                    tab.className = "slide-tab px-3 py-1 rounded border border-cyber-border text-gray-400 hover:text-white";
+                }
+            });
+        }
+
+        function setSlide(index) {
+            currentSlide = index;
+            renderSlide();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slidesData.length) % slidesData.length;
+            renderSlide();
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slidesData.length;
+            renderSlide();
+        }
+
+        // Initialize First Slide
+        renderSlide();
+
+        // -------------------------------------------------------------
+        // EVIDENCIA 3: EMBEDDED DIGITAL RESOURCE INJECTOR
+        // -------------------------------------------------------------
+        const htmlResourceCode = `
+            <!DOCTYPE html>
+            <html lang="es">
+            <head>
+                <meta charset="UTF-8">
+                <script src="https://cdn.tailwindcss.com"><\/script>
+                <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Rajdhani:wght@600&display=swap" rel="stylesheet">
+                <style>
+                    body { background: #080c14; color: #fff; font-family: 'Rajdhani', sans-serif; padding: 20px; }
+                </style>
+            </head>
+            <body class="flex flex-col items-center justify-center min-h-screen text-center">
+                <div class="p-6 bg-slate-900 border border-cyan-500/40 rounded-2xl max-w-md space-y-4 shadow-lg shadow-cyan-500/10">
+                    <div class="text-cyan-400 font-bold tracking-widest text-xs font-mono">RECURSO DIGITAL COMPLEMENTARIO</div>
+                    <h2 class="font-orbitron text-xl text-white font-bold">Simulador Didáctico Interactivo</h2>
+                    <p class="text-slate-300 text-sm">Este objeto interactivo se ejecuta en tiempo real dentro del portafolio. Permite a los estudiantes explorar conceptos mediante simulación de red.</p>
+                    <div class="p-4 bg-slate-950 rounded-lg border border-slate-800 text-xs font-mono text-emerald-400 text-left">
+                        <div>> ping servidor_didactico.local</div>
+                        <div>> Respuesta: 64 bytes | Tiempo: 1ms</div>
+                        <div>> ESTADO: RECURSO LISTO Y ACTIVO</div>
+                    </div>
+                    <button onclick="alert('¡Práctica Interactiva Completada!')" class="w-full bg-gradient-to-r from-cyan-500 to-purple-600 text-black font-bold py-2 rounded shadow hover:opacity-90">
+                        Probar Interacción Didáctica
+                    </button>
+                </div>
+            </body>
+            </html>
+        `;
+
+        function loadResourceFrame() {
+            const iframe = document.getElementById('resource-frame');
+            iframe.srcdoc = htmlResourceCode;
+        }
+
+        function reloadIframe() {
+            loadResourceFrame();
+        }
+
+        function openResourceNewTab() {
+            const blob = new Blob([htmlResourceCode], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            window.open(url, '_blank');
+        }
+
+        loadResourceFrame();
+
+        // -------------------------------------------------------------
+        // EVIDENCIA 4: RÚBRICA DINÁMICA DE EVALUACIÓN
+        // -------------------------------------------------------------
+        let rubricScores = { 1: 30, 2: 25, 3: 25, 4: 20 };
+
+        function setRubric(criterion, value, btnElement) {
+            rubricScores[criterion] = value;
+            document.getElementById(`score-c${criterion}`).innerText = `${value} pts`;
+
+            // Reset buttons style for criterion
+            const buttons = document.querySelectorAll(`.r-btn-${criterion}`);
+            buttons.forEach(b => {
+                b.className = `r-btn-${criterion} p-3 rounded border border-cyber-border text-gray-400 text-left`;
+            });
+
+            // Highlight selected button
+            btnElement.className = `r-btn-${criterion} p-3 rounded border border-cyber-green bg-cyber-green/20 text-white text-left`;
+
+            // Update Total
+            const total = Object.values(rubricScores).reduce((a, b) => a + b, 0);
+            document.getElementById('rubric-total').innerText = `${total} / 100`;
+        }
+
+        // -------------------------------------------------------------
+        // EVIDENCIA 5: AUTORREFLEXIÓN ACCORDION
+        // -------------------------------------------------------------
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById(`icon-${id}`);
+
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.className = 'fa-solid fa-chevron-up text-cyber-yellow';
+            } else {
+                content.classList.add('hidden');
+                icon.className = 'fa-solid fa-chevron-down text-cyber-yellow';
+            }
+        }
+
+        // -------------------------------------------------------------
+        // COPY LINK UTILITY
+        // -------------------------------------------------------------
+        function copyLink() {
+            const linkInput = document.getElementById('portfolio-link');
+            linkInput.select();
+            document.execCommand('copy');
+            
+            const toast = document.getElementById('copy-toast');
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
